@@ -6,6 +6,7 @@ var io = require('socket.io').listen(server);
 
 users = [];
 connections = [];
+messages = [];
 
 server.listen(process.env.PORT || 3000);
 console.log('server ran');
@@ -37,8 +38,8 @@ io.sockets.on('connection', function(socket, callback){
 
     //Send Message
     socket.on('send message', function(data){
-        
-        io.sockets.emit('new message', {msg: data, user: socket.username});
+        socket.broadcast.emit('new message', {msg: data, user: socket.username});
+        socket.emit('own message', {msg: data, user: socket.username});
     });
 
     //New User
@@ -46,6 +47,7 @@ io.sockets.on('connection', function(socket, callback){
         callback(true);
         socket.username = data;
         users.push(socket.username);
+        console.log(users.length);
         updateUsernames();
     });
 
