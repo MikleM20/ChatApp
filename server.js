@@ -51,11 +51,28 @@ io.sockets.on('connection', function(socket, callback){
         updateUsernames();
     });
 
+    //Change Nickname
+    socket.on('change name', function(data){
+        if(users.includes(data)){
+            socket.emit('name feedback', {desired: data, user: socket.username});
+        }
+        else{
+            //console.log("Initial name %s", socket.username);
+            users.splice(users.indexOf(socket.username), 1, data);
+            socket.broadcast.emit('name changed', {desired: data, user: socket.username});
+            socket.emit('name changed', {desired: data, user: socket.username});
+            socket.username = data;
+            updateUsernames();
+            //console.log("Name after %s", socket.username);
+        }
+    });
+
     //Change Nickname color when sending
     socket.on('change color', function(data){
-        console.log("Initial color %s", socket.color);
+        //console.log("Initial color %s", socket.color);
         socket.color = data;
-        console.log("Color after %s", socket.color);
+        socket.emit('color changed', {desired: data});
+        //console.log("Color after %s", socket.color);
     });
 
     function updateUsernames(){
