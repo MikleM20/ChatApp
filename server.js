@@ -6,7 +6,6 @@ var io = require('socket.io').listen(server);
 
 users = [];
 connections = [];
-messages = [];
 
 server.listen(process.env.PORT || 3000);
 console.log('server ran');
@@ -38,17 +37,25 @@ io.sockets.on('connection', function(socket, callback){
 
     //Send Message
     socket.on('send message', function(data){
-        socket.broadcast.emit('new message', {msg: data, user: socket.username});
-        socket.emit('own message', {msg: data, user: socket.username});
+        socket.broadcast.emit('new message', {msg: data, user: socket.username, nameCol: socket.color});
+        socket.emit('own message', {msg: data, user: socket.username, nameCol: socket.color});
     });
 
     //New User
     socket.on('new user', function(data,callback){
         callback(true);
         socket.username = data;
+        socket.color = '#000000';
         users.push(socket.username);
         console.log(users.length);
         updateUsernames();
+    });
+
+    //Change Nickname color when sending
+    socket.on('change color', function(data){
+        console.log("Initial color %s", socket.color);
+        socket.color = data;
+        console.log("Color after %s", socket.color);
     });
 
     function updateUsernames(){

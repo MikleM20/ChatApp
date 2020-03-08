@@ -14,18 +14,26 @@ $(function(){
 
     $messageform.submit(function(e){
         e.preventDefault();
-        socket.emit('send message', $message.val());
+        if($message.val().includes("/nickcolor")){
+            var splitCommand = $message.val().split(" ");
+            var desiredColor = "#"+splitCommand[1];
+            console.log(desiredColor);
+            socket.emit('change color', desiredColor);
+        }
+        else{
+            socket.emit('send message', $message.val());
+        }
         $message.val('');
     });
 
     socket.on('own message', function(data){
         time = calcTime('Calgary', -6);
-        $chat.append('<div class="well"><h6>'+time+'</h6><strong>'+data.user+': '+data.msg+'</strong></div>');
+        $chat.append('<div class="well"><h6>'+time+'</h6><strong style="color:'+data.nameCol+'">'+data.user+'</strong>: <strong>'+data.msg+'</strong></div>');
     });
 
     socket.on('new message', function(data){
         time = calcTime('Calgary', -6);
-        $chat.append('<div class="well"><h6>'+time+'</h6><strong>'+data.user+': </strong>'+data.msg+'</div>');
+        $chat.append('<div class="well"><h6>'+time+'</h6><strong style="color:'+data.nameCol+'">'+data.user+': </strong>'+data.msg+'</div>');
     });
 
     socket.on('get users', function(data){
