@@ -2,7 +2,6 @@
 <html>
     <head>
         <title>ChatApp</title>
-        <link rel = "stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="socket.io/socket.io.js"></script>
         <script src="/script.js"></script>
@@ -10,34 +9,25 @@
         <link href="/style.css" rel="stylesheet" type ="text/css"/>
     </head>
     <body>
-
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-4">
-                    <div class="well">
-                        <h3 id="userlist">Online Users</h3>
-                        <h4>You Are: </h4>
-                        <h4 id="who"></h4>
-                        <ul class="list-group" id="users"></ul>
-                    </div>
-                </div>
-
-                <div class="col-md-8">
-                    <div class="chat" id="chat"></div>
-
-                </div>
-
+        <div id =row>
+        <div class="chatWindow">
+            <div class = "chatHeader">
+                <span>Hey <strong id ="who"></strong>, feel free to chat with others.</span>
             </div>
-            <form id="messageForm">
-                <div class="form-group">
-                    <label>Enter Message</label>
-                    <textarea class="form-control" id="message"></textarea>
-                    <br />
-                    <input type="submit" class="btn btn-primary" value = "Send Message"/>
-                </div>
-            </form>
+            <div class="chat" id="chat"></div>
+            <div class="chatBottom">
+                <form id="messageForm">
+                        <input type="text" id="message"/>
+                        <input type="submit" value = "Send"/>
+                </form>
+            </div>
         </div>
-
+        <div id="rightSide">
+            <div class = "chatHeader" id= onlineText>
+                <span><strong>Online Users</span>
+            </div>
+            <ul class="list-group" id="users"></ul>
+        </div>
+        </div>
     </body>
 </html>

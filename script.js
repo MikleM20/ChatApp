@@ -38,24 +38,24 @@ $(function(){
 
     socket.on('own message', function(data){
         time = calcTime('Calgary', -6);
-        $chat.append('<div class="well"><h6>'+time+'</h6><strong style="color:'+data.nameCol+'">'+data.user+'</strong>: <strong>'+data.msg+'</strong></div>');
+        $chat.append('<div id="msg"><h6>'+time+'</h6><strong style="color:'+data.nameCol+'">'+data.user+'</strong>: <strong>'+data.msg+'</strong></div>');
     });
 
     socket.on('new message', function(data){
         time = calcTime('Calgary', -6);
-        $chat.append('<div class="well"><h6>'+time+'</h6><strong style="color:'+data.nameCol+'">'+data.user+': </strong>'+data.msg+'</div>');
+        $chat.append('<div id="msg"><h6>'+time+'</h6><strong style="color:'+data.nameCol+'">'+data.user+': </strong>'+data.msg+'</div>');
     });
 
     socket.on('name feedback', function(data){
-        $chat.append('<div class="well"><strong>The name '+data.desired+' is taken your username is still '+data.user+'.</strong></div>');
+        $chat.append('<div id="msg"><strong>The name '+data.desired+' is taken your username is still '+data.user+'.</strong></div>');
     });
 
     socket.on('name changed', function(data){
-        $chat.append('<div class="well"><strong>'+data.user+'changed their name to '+data.desired+'.</strong></div>');
+        $chat.append('<div id="msg"><strong>'+data.user+'changed their name to '+data.desired+'.</strong></div>');
     });
 
     socket.on('color changed', function(data){
-        $chat.append('<div class="well">Your name will now show as <strong style="color:'+data.desired+'">THIS </strong> color.</strong></div>');
+        $chat.append('<div id="msg">Your name will now show as <strong style="color:'+data.desired+'">THIS </strong> color.</strong></div>');
     });
 
     socket.on('get users', function(data){

@@ -45,7 +45,7 @@ io.sockets.on('connection', function(socket, callback){
     socket.on('new user', function(data,callback){
         callback(true);
         socket.username = data;
-        socket.color = '#000000';
+        socket.color = '#eeeeee';
         users.push(socket.username);
         console.log(users.length);
         updateUsernames();
