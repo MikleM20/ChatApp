@@ -39,37 +39,44 @@ $(function(){
     socket.on('own message', function(data){
         time = calcTime('Calgary', -6);
         $chat.append('<div id="msg"><h6>'+time+'</h6><strong style="color:'+data.nameCol+'">'+data.user+'</strong>: <strong><i>'+data.msg+'</i></strong></div>');
+        scrollDown();
     });
 
     //Prints other user's message
     socket.on('new message', function(data){
         time = calcTime('Calgary', -6);
         $chat.append('<div id="msg"><h6>'+time+'</h6><strong style="color:'+data.nameCol+'">'+data.user+': </strong>'+data.msg+'</div>');
+        scrollDown();
     });
 
     //Tells user who tried to change name that it is taken
     socket.on('name feedback', function(data){
         $chat.append('<div id="msg"><strong>The name '+data.desired+' is taken your username is still '+data.user+'.</strong></div>');
+        scrollDown();
     });
 
     //Tells all users if someone changed their name
     socket.on('name changed', function(data){
         $chat.append('<div id="msg"><strong>'+data.user+'changed their name to '+data.desired+'.</strong></div>');
+        scrollDown();
     });
 
     //Tells user that namecolow will change from here on
     socket.on('color changed', function(data){
         $chat.append('<div id="msg">Your name will now show as <strong style="color:'+data.desired+'">THIS </strong> color.</strong></div>');
+        scrollDown();
     });
 
     //Tell someone they connected
     socket.on('you joined', function(data){
         $chat.append('<div id="msg"><strong style="color:green">You Connected</strong></div>');
+        scrollDown();
     });
 
     //Tells others that someone connected
     socket.on('someone joined', function(data){
         $chat.append('<div id="msg"><strong style="color:green">'+data.user+' Connected</strong></div>');
+        scrollDown();
     });
 
     //Updats the user list
@@ -102,6 +109,12 @@ $(function(){
         socket.emit('new user', $username, function(data){
             document.getElementById("who").innerHTML = "" + $username;
         });
+    }
+
+    function scrollDown(){;
+       $('.chat').animate({
+            scrollTop: $('.chat').prop("scrollHeight")
+        },600);
     }
 
 });
