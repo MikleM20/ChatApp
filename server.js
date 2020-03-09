@@ -47,7 +47,9 @@ io.sockets.on('connection', function(socket, callback){
         socket.username = data;
         socket.color = '#eeeeee';
         users.push(socket.username);
-        console.log(users.length);
+        socket.broadcast.emit('someone joined', {user: socket.username});
+        socket.emit('you joined', {user: socket.username});
+        //console.log(users.length);
         updateUsernames();
     });
 
