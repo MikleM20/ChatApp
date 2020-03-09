@@ -7,18 +7,21 @@ var io = require('socket.io').listen(server);
 users = [];
 connections = [];
 
+//Start listening
 server.listen(process.env.PORT || 3000);
 console.log('server ran');
 
+//Send index file
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
-
+//Send style file
 app.get('/style.css', function(req, res){
     res.sendFile(__dirname + '/style.css');
 });
 
+//send script file
 app.get('/script.js', function(req, res){
     res.sendFile(__dirname + '/script.js');
 });

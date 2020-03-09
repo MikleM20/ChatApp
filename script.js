@@ -11,7 +11,7 @@ $(function(){
     let currentUser = document.getElementById("who").innerHTML;
     
     
-    //User sends message or command
+    //User sends message or commands
     $messageform.submit(function(e){
         e.preventDefault();
         if($message.val().includes("/nickcolor")){
