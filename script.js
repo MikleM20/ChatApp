@@ -8,7 +8,6 @@ $(function(){
     let $window = $('html');
     let $userList = ('#userList');
     let time;
-    let currentUser = document.getElementById("who").innerHTML;
     
     
     //User sends message or commands
